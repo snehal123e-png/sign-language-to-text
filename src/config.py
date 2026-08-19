@@ -1,0 +1,66 @@
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATASET_DIR = BASE_DIR / "dataset"
+RAW_DATA_DIR = DATASET_DIR / "raw"
+PROCESSED_DATA_DIR = DATASET_DIR / "processed"
+
+MODELS_DIR = BASE_DIR / "models"
+RESULTS_DIR = BASE_DIR / "results"
+
+SIGN_CLASSES = [
+    "HELLO",
+    "THANK_YOU",
+    "YES",
+    "NO",
+    "PLEASE",
+    "HELP",
+    "GOOD",
+    "BAD",
+    "I",
+    "YOU",
+]
+
+MAX_HANDS = 2
+LANDMARKS_PER_HAND = 21
+COORDINATES_PER_LANDMARK = 3
+
+FEATURES_PER_FRAME = (
+    LANDMARKS_PER_HAND
+    * COORDINATES_PER_LANDMARK
+    * MAX_HANDS
+)
+
+SEQUENCE_LENGTH = 30
+
+NUM_CLASSES = len(SIGN_CLASSES)
+
+LSTM_UNITS_1 = 128
+LSTM_UNITS_2 = 64
+DROPOUT_RATE = 0.3
+
+BATCH_SIZE = 32
+EPOCHS = 50
+VALIDATION_SPLIT = 0.2
+
+SEQUENCES_PER_CLASS = 5
+COLLECTION_DELAY = 0.05
+
+MODEL_PATH = MODELS_DIR / "sign_lstm.keras"
+LABEL_ENCODER_PATH = MODELS_DIR / "label_encoder.pkl"
+SCALER_PATH = MODELS_DIR / "scaler.pkl"
+
+X_PATH = PROCESSED_DATA_DIR / "X.npy"
+Y_PATH = PROCESSED_DATA_DIR / "y.npy"
+LABELS_PATH = PROCESSED_DATA_DIR / "labels.json"
+
+CONFIDENCE_THRESHOLD = 0.70
+PREDICTION_SMOOTHING = 5
+
+for directory in [
+    RAW_DATA_DIR,
+    PROCESSED_DATA_DIR,
+    MODELS_DIR,
+    RESULTS_DIR,
+]:
+    directory.mkdir(parents=True, exist_ok=True)
